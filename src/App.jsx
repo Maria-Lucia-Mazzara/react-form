@@ -12,6 +12,7 @@ function App() {
   const [libri, setLibri] = useState(books);
   const [nuovoTitolo, setNuovoTitolo] = useState('');
 
+  // aggiungere libro 
   const invio = (e) => {
     e.preventDefault();
     if (nuovoTitolo.length === 0) return;
@@ -23,26 +24,39 @@ function App() {
     setNuovoTitolo('');
   };
 
+  // eliminare il libro
   const eliminaLibro = (id) => {
     const listaAggiornata = libri.filter((libro) => libro.id !== id);
     setLibri(listaAggiornata);
   };
 
+  // salvare modifica
+  const salvaModifica = (id) => {
+    const listaAggiornata = libri.map((libro) =>
+      libro.id === id ? { ...libro, titolo: titoloModificato } : libro
+    );
+    setLibri(listaAggiornata);
+    setLibroInModifica(null);
+    setTitoloModificato('');
+  };
+
 
   return (
     <>
-      <form onSubmit={invio}>
-        <input type='text' value={nuovoTitolo} onChange={e => setNuovoTitolo(e.target.value)} />
-        <button>
-          Invia
-        </button>
-      </form>
+
 
       <div className="container mt-4">
         <h1>Lista Articoli</h1>
+        <form onSubmit={invio}>
+          <input type='text' value={nuovoTitolo} onChange={e => setNuovoTitolo(e.target.value)} />
+          <button>
+            Invia
+          </button>
+        </form>
+
         <ul className="list-group">
           {libri.map((libro) => (
-            <li key={libro.id} className="list-group-item">
+            <li key={libro.id} className="list-group-item d-flex justify-content-between align-items-center">
               {libro.titolo}
               <button className="btn btn-danger btn-sm" onClick={() => eliminaLibro(libro.id)} >
                 <i className="bi bi-trash"></i>
