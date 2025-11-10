@@ -13,9 +13,15 @@ function App() {
   const [nuovoTitolo, setNuovoTitolo] = useState('');
 
   const invio = (e) => {
-    e.preventDefault()
-    alert('Inviato!')
-  }
+    e.preventDefault();
+    if (nuovoTitolo.length === 0) return;
+    const nuovoLibro = {
+      id: libri.length + 1,
+      titolo: nuovoTitolo,
+    };
+    setLibri([...libri, nuovoLibro]);
+    setNuovoTitolo('');
+  };
 
   return (
     <>
