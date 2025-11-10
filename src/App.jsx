@@ -13,7 +13,16 @@ function App() {
 
   return (
     <>
-
+      <div className="container mt-4">
+        <h1>Lista Articoli</h1>
+        <ul className="list-group">
+          {libri.map((libro) => (
+            <li key={libro.id} className="list-group-item">
+              {libro.titolo}
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   )
 }
