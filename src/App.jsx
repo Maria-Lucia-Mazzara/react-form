@@ -23,6 +23,12 @@ function App() {
     setNuovoTitolo('');
   };
 
+  const eliminaLibro = (id) => {
+    const listaAggiornata = libri.filter((libro) => libro.id !== id);
+    setLibri(listaAggiornata);
+  };
+
+
   return (
     <>
       <form onSubmit={invio}>
@@ -38,6 +44,9 @@ function App() {
           {libri.map((libro) => (
             <li key={libro.id} className="list-group-item">
               {libro.titolo}
+              <button className="btn btn-danger btn-sm" onClick={() => eliminaLibro(libro.id)} >
+                <i className="bi bi-trash"></i>
+              </button>
             </li>
           ))}
         </ul>
